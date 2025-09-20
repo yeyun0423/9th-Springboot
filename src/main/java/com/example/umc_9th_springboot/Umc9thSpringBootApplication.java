@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class Umc9thSpringBootApplication {
 
     public static void main(String[] args) {
+        //메인에 브레이크포인트
         SpringApplication.run(Umc9thSpringBootApplication.class, args);
     }
 
