@@ -17,10 +17,9 @@ public interface MissionRepository extends JpaRepository<Mission, Long> {
     @Query("select um from UserMission um " +
             "join fetch um.mission m " +
             "join fetch m.shop s " +
-            "where um.member.id = :userId " +
+            "where um.user.id = :userId " +
             "and um.status = :status " +
             "order by um.id asc")
-    //Spring Data JPA가 내부에서 limit, offset 자동 처리
     Page<UserMission> findUserMissionsByStatus(
             @Param("userId") Long userId,
             @Param("status") MissionStatus status,
@@ -31,7 +30,7 @@ public interface MissionRepository extends JpaRepository<Mission, Long> {
     @Query("select m from Mission m " +
             "join fetch m.shop s " +
             "join fetch s.region r " +
-            "left join UserMission um on um.mission = m and um.member.id = :userId " +
+            "left join UserMission um on um.mission = m and um.user.id = :userId " +
             "where r.id = :regionId " +
             "and (um.status is null or um.status <> 'COMPLETED')")
     Page<Mission> findAvailableMissionsByRegion(

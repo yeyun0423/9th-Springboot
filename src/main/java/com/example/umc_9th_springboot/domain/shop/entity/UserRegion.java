@@ -1,6 +1,6 @@
 package com.example.umc_9th_springboot.domain.shop.entity;
 
-import com.example.umc_9th_springboot.domain.member.entity.Member;
+import com.example.umc_9th_springboot.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,5 +24,5 @@ public class UserRegion {
     // 유저 FK
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    private Member member;
+    private User user;
 }

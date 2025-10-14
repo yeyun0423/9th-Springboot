@@ -12,15 +12,12 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     //-> 단순 crud로 표현할 수 없을 때, 무조건 함수를 선언
     // 복합 조건이 이에 해당 (검색 조건이 여러 개인 경우)
 
-    // 중복 리뷰 방지용
-    Optional<Review> findByMemberIdAndShopId(Long memberId, Long shopId);
-
     //fetch join을 사용하는 이유
     //-> N+1 문제를 방지하면서, 리뷰와 댓글을 한 번의 쿼리로 효율적으로 조회
 
     // 점포별 리뷰 + 리뷰 댓글 함께 조회
     @Query("select distinct r from Review r " +
-            "join fetch r.member " +
+            "join fetch r.user " +
             "left join fetch r.reviewCommentList " +
             "where r.shop = :shop " +
             "order by r.createdAt desc")

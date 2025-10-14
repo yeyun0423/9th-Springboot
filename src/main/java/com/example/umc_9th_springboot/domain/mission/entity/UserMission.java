@@ -1,56 +1,48 @@
-package com.example.umc_9th_springboot.domain.mission.entity;
+    package com.example.umc_9th_springboot.domain.mission.entity;
 
-import com.example.umc_9th_springboot.domain.member.entity.Member;
-import com.example.umc_9th_springboot.domain.mission.enums.MissionStatus;
-import jakarta.persistence.*;
-import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+    import com.example.umc_9th_springboot.domain.user.entity.User;
+    import com.example.umc_9th_springboot.domain.mission.enums.MissionStatus;
+    import jakarta.persistence.*;
+    import lombok.*;
+    import com.example.umc_9th_springboot.domain.common.BaseEntity;
+    import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.LocalDateTime;
+    import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "user_mission")
-@Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
-@Builder
-@EntityListeners(AuditingEntityListener.class)
-public class UserMission {
+    @Entity
+    @Table(name = "user_mission")
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    @AllArgsConstructor
+    @Builder
+    @EntityListeners(AuditingEntityListener.class)
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    public class UserMission extends BaseEntity {
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 20)
-    private MissionStatus status;
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private Long id;
 
-    @Column(name = "success_requested_at")
-    private LocalDateTime successRequestedAt;
+        @Enumerated(EnumType.STRING)
+        @Column(nullable = false, length = 20)
+        private MissionStatus status;
 
-    @Column(name = "success_confirmed_at")
-    private LocalDateTime successConfirmedAt;
+        @Column(name = "success_requested_at")
+        private LocalDateTime successRequestedAt;
 
-    @Column(name = "is_review", nullable = false)
-    private boolean isReview;
+        @Column(name = "success_confirmed_at")
+        private LocalDateTime successConfirmedAt;
 
-    @CreatedDate
-    @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt;
+        @Column(name = "is_review", nullable = false)
+        private boolean isReview;
 
-    @LastModifiedDate
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+        // 유저 FK
+        @ManyToOne(fetch = FetchType.LAZY)
+        @JoinColumn(name = "user_id", nullable = false)
+        private User user;
 
-    // 유저 FK
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private Member member;
-
-    // 미션 FK
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "mission_id", nullable = false)
-    private Mission mission;
-}
+        // 미션 FK
+        @ManyToOne(fetch = FetchType.LAZY)
+        @JoinColumn(name = "mission_id", nullable = false)
+        private Mission mission;
+    }

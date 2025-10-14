@@ -1,5 +1,5 @@
 package com.example.umc_9th_springboot.domain.term.entity;
-
+import com.example.umc_9th_springboot.domain.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
-public class Terms {
+public class Terms extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,4 +1,4 @@
-package com.example.umc_9th_springboot.domain.member.entity;
+package com.example.umc_9th_springboot.domain.user.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
