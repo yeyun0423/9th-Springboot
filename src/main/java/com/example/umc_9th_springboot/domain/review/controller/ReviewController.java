@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
  *  - /api/reviews?score=4
  *  - /api/reviews?shop=반이학생마라탕마라반&score=5
  */
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/reviews")

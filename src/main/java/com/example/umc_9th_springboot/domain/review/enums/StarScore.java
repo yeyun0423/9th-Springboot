@@ -2,6 +2,7 @@ package com.example.umc_9th_springboot.domain.review.enums;
 
 /** 별점대 필터 */
 public enum StarScore {
+
     FIVE(5), FOUR(4), THREE(3), TWO(2), ONE(1);
 
     public final int score;

@@ -17,5 +17,6 @@ public class ReviewService {
     // 가게명 + 별점대 API
     public Page<ReviewResponse> getReviews(String shopName, Integer score, Pageable pageable) {
         return reviewRepository.search(shopName, StarScore.from(score), pageable);
+
     }
 }

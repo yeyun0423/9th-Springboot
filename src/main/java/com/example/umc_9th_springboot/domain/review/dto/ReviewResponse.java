@@ -12,4 +12,5 @@ public class ReviewResponse {
     private Double star;
     private String reply;     // 사장님 답글
     private String shopName;  // 가게명 표시용
+
 }

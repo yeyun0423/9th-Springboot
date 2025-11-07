@@ -27,6 +27,7 @@ import java.util.List;
     private final QReview review = QReview.review;
     private final QShop shop = QShop.shop;
 
+
     /** 가게명 필터
     - shopName이 null이면 return null
      -값 있으면 가게명 조회

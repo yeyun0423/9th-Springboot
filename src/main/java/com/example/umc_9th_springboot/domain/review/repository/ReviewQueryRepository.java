@@ -9,4 +9,5 @@ import org.springframework.data.domain.Pageable;
 public interface ReviewQueryRepository {
     /** 가게명 + 별점대 필터 API */
     Page<ReviewResponse> search(String shopName, StarScore score, Pageable pageable);
+
 }
