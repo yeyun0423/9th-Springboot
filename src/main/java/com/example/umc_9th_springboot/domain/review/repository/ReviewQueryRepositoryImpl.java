@@ -83,7 +83,6 @@ import java.util.List;
                 .from(review)
                 .leftJoin(review.shop, shop)
                 .where(where) //동적 where절 (shopName,rating)
-                .distinct() //종복 제거
                 .orderBy(review.id.desc());
 
         //페이징 처리
