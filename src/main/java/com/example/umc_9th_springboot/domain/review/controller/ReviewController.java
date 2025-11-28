@@ -7,6 +7,8 @@ import com.example.umc_9th_springboot.domain.review.exception.code.ReviewSuccess
 import com.example.umc_9th_springboot.domain.review.service.ReviewService;
 import com.example.umc_9th_springboot.global.apiPayload.ApiResponse;
 import com.example.umc_9th_springboot.global.apiPayload.code.GeneralSuccessCode;
+import com.example.umc_9th_springboot.global.validation.ValidPage;
+
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +31,8 @@ import org.springframework.web.bind.annotation.*;
 public class ReviewController {
 
     private final ReviewService reviewService;
-    // 리뷰 목록 조회
+
+    // 리뷰 목록 조회 (가게명 + 별점 필터)
     @GetMapping
     public ApiResponse<Page<ReviewResponse>> getReviews(
             @RequestParam(required = false) String shop,
@@ -40,7 +43,7 @@ public class ReviewController {
         return ApiResponse.onSuccess(GeneralSuccessCode.OK, reviewPage);
     }
 
-    //리뷰 작성
+    // 리뷰 작성
     @PostMapping
     public ApiResponse<ReviewResDTO.CreateDTO> createReview(
             @Valid @RequestBody ReviewReqDTO.CreateDTO dto
@@ -48,6 +51,18 @@ public class ReviewController {
         return ApiResponse.onSuccess(
                 ReviewSuccessCode.CREATED,
                 reviewService.createReview(dto)
+        );
+    }
+
+    //내가 작성한 리뷰 목록 조회
+    @GetMapping("/me")
+    public ApiResponse<ReviewResDTO.ReviewPreViewListDTO> getMyReviews(
+            @RequestParam Long userId,
+            @RequestParam(name = "page") @ValidPage Integer page
+    ) {
+        return ApiResponse.onSuccess(
+                ReviewSuccessCode.FOUND,
+                reviewService.getMyReviews(userId, page)
         );
     }
 }
