@@ -7,6 +7,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import com.example.umc_9th_springboot.domain.shop.entity.Shop;
+import com.example.umc_9th_springboot.domain.mission.entity.UserMission;
+import com.example.umc_9th_springboot.domain.mission.enums.MissionStatus;
+import com.example.umc_9th_springboot.domain.user.entity.User;
 
 
 public interface MissionRepository extends JpaRepository<Mission, Long> {
@@ -25,4 +28,5 @@ public interface MissionRepository extends JpaRepository<Mission, Long> {
 
     //특정 가게의 미션 목록 페이징 조회
     Page<Mission> findAllByShop(Shop shop, Pageable pageable);
+
 }

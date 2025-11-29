@@ -6,6 +6,9 @@ import java.time.LocalDateTime;
 
 import java.util.List;
 
+import com.example.umc_9th_springboot.domain.mission.enums.MissionStatus;
+
+
 public class MissionResDTO {
 
     @Builder
@@ -36,5 +39,26 @@ public class MissionResDTO {
             Long missionId,
             String title,
             String description
+    ) {}
+
+    // 진행 중인 미션 목록 DTO
+    @Builder
+    public record ProgressMissionListDTO(
+            List<ProgressMissionDTO> missionList,
+            Integer listSize,
+            Integer totalPage,
+            Long totalElements,
+            Boolean isFirst,
+            Boolean isLast
+    ) {}
+
+
+    //진행중 미션 단일 DTO
+    @Builder
+    public record ProgressMissionDTO(
+            Long missionId,
+            String title,
+            String description,
+            MissionStatus status
     ) {}
 }

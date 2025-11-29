@@ -17,6 +17,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.example.umc_9th_springboot.domain.mission.enums.MissionStatus;
+
+
 
 @Service
 @RequiredArgsConstructor
@@ -80,5 +83,21 @@ public class MissionService {
 
         // Page<Mission> → MissionPreviewListDTO 변환
         return MissionConverter.toMissionPreviewListDTO(result);
+    }
+
+    @Transactional(readOnly = true)
+    public MissionResDTO.ProgressMissionListDTO getProgressMissions(Long userId, Integer page) {
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("유저를 찾을 수 없습니다."));
+
+        PageRequest pageRequest = PageRequest.of(page - 1, 10);
+
+        // 진행중인 미션 조회
+        Page<UserMission> result = userMissionRepository.findAllByUserAndStatus(
+                user,  MissionStatus.PROGRESS,pageRequest
+        );
+
+        return MissionConverter.toProgressMissionListDTO(result);
     }
 }

@@ -37,4 +37,17 @@ public class MissionController {
                 missionService.getShopMissions(shopId, page)
         );
     }
+
+    // 내가 진행중인 미션 목록 조회
+    @GetMapping("/progress")
+    public ApiResponse<MissionResDTO.ProgressMissionListDTO> getProgressMissions(
+            @RequestParam Long userId,
+            @RequestParam(name = "page") @ValidPage Integer page
+    ) {
+        return ApiResponse.onSuccess(
+                MissionSuccessCode.FOUND_PROGRESS,
+                missionService.getProgressMissions(userId, page)
+        );
+    }
+
 }

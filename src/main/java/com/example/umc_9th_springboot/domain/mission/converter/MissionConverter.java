@@ -55,4 +55,33 @@ public class MissionConverter {
                 .description(mission.getDescription())
                 .build();
     }
+
+    //진행 중인 미션 목록 → 진행 중인 미션 목록 DTO로 변환
+    public static MissionResDTO.ProgressMissionListDTO toProgressMissionListDTO(Page<UserMission> page) {
+
+        return MissionResDTO.ProgressMissionListDTO.builder()
+                .missionList(
+                        page.getContent().stream()
+                                .map(MissionConverter::toProgressMissionDTO)
+                                .toList()
+                )
+                .listSize(page.getSize())
+                .totalPage(page.getTotalPages())
+                .totalElements(page.getTotalElements())
+                .isFirst(page.isFirst())
+                .isLast(page.isLast())
+                .build();
+    }
+
+    // UserMission 엔티티 → 진행 중 미션 단건 DTO 변환
+    public static MissionResDTO.ProgressMissionDTO toProgressMissionDTO(UserMission userMission) {
+
+        return MissionResDTO.ProgressMissionDTO.builder()
+                .missionId(userMission.getMission().getId())
+                .title(userMission.getMission().getTitle())
+                .description(userMission.getMission().getDescription())
+                .status(userMission.getStatus())
+                .build();
+    }
+
 }
