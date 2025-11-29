@@ -4,6 +4,8 @@ import lombok.Builder;
 
 import java.time.LocalDateTime;
 
+import java.util.List;
+
 public class MissionResDTO {
 
     @Builder
@@ -15,4 +17,24 @@ public class MissionResDTO {
             Boolean isReview,
             LocalDateTime createdAt
     ){}
+
+    // 특정 가게 미션 목록 응답 DTO
+    @Builder
+    public record MissionPreviewListDTO(
+            List<MissionPreviewDTO> missionList,
+            Integer listSize,
+            Integer totalPage,
+            Long totalElements,
+            Boolean isFirst,
+            Boolean isLast
+    ) {}
+
+
+   //하나의 미션 요약 DTO
+    @Builder
+    public record MissionPreviewDTO(
+            Long missionId,
+            String title,
+            String description
+    ) {}
 }
