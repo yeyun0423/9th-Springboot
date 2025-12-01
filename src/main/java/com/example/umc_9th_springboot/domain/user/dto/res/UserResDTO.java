@@ -38,4 +38,16 @@ public class UserResDTO {
             String accessToken
     ) {}
 
+    // jwt 회원가입 응답 DTO
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class SignUpJwtDTO {
+        private Long userId;
+        private String email;
+        private String name;
+        private Role role;
+        private String accessToken;
+    }
 }

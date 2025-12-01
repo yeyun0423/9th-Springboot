@@ -85,4 +85,31 @@ public class UserCommandServiceImpl implements UserCommandService {
                 .build();
     }
 
+    // jwt 회원가입
+    @Override
+    public UserResDTO.SignUpJwtDTO signupJwt(UserReqDTO.SignUpDTO dto) {
+
+        String encodedPassword = passwordEncoder.encode(dto.getPassword());
+
+        User user = UserConverter.toUser(dto, encodedPassword, Role.USER);
+
+        User savedUser = userRepository.save(user);
+
+
+        String accessToken = jwtUtil.createAccessToken(
+                savedUser.getId(),
+                savedUser.getEmail(),
+                savedUser.getRole().name()
+        );
+
+
+        return UserResDTO.SignUpJwtDTO.builder()
+                .userId(savedUser.getId())
+                .email(savedUser.getEmail())
+                .name(savedUser.getName())
+                .role(savedUser.getRole())
+                .accessToken(accessToken)
+                .build();
+    }
+
 }

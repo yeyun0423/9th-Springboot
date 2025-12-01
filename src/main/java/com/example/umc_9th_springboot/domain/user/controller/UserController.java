@@ -52,4 +52,10 @@ public class UserController {
     ) {
         return userCommandService.loginJwt(request);
     }
+
+    // jwt 회원가입 API
+    @PostMapping("/sign-up/jwt")
+    public UserResDTO.SignUpJwtDTO signUpJwt(@RequestBody UserReqDTO.SignUpDTO request) {
+        return userCommandService.signupJwt(request);
+    }
 }

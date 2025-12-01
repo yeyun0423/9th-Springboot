@@ -12,4 +12,7 @@ public interface UserCommandService {
 
     // jwt 로그인
     UserResDTO.LoginJwtDTO loginJwt(UserReqDTO.LoginJwtDTO dto);
+
+    // jwt 회원가입
+    UserResDTO.SignUpJwtDTO signupJwt(UserReqDTO.SignUpDTO dto);
 }

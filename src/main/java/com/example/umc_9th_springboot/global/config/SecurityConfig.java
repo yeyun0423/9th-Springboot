@@ -28,7 +28,8 @@ public class SecurityConfig {
             "/api/users/sign-up/session",
             "/api/users/login/session",
             "/api/users/logout/session",
-            "/api/users/login/jwt"
+            "/api/users/login/jwt",
+            "/api/users/sign-up/jwt"
     };
 
     // PasswordEncoder 빈 등록
