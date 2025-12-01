@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 public class UserResDTO {
 
-    //회원가입 응답 DTO
+    //회원가입 세션 방식 응답 DTO
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
@@ -19,16 +19,23 @@ public class UserResDTO {
         private Role role;
     }
 
-    //로그인 응답 DTO
+    //로그인 세션 방식 응답 DTO
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
-    public static class LoginDTO {
+    public static class LoginSessionDTO {
         private Long userId;
         private String email;
         private String name;
         private Role role;
     }
+
+    // 로그인 jwt 방식 응답 DTO
+    @Builder
+    public record LoginJwtDTO(
+            Long userId,
+            String accessToken
+    ) {}
 
 }

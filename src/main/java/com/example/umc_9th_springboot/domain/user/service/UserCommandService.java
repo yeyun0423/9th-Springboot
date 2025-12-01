@@ -5,8 +5,11 @@ import com.example.umc_9th_springboot.domain.user.dto.res.UserResDTO;
 
 public interface UserCommandService {
 
-    //회원가입
+    // Session 회원가입
     UserResDTO.SignUpDTO signup(UserReqDTO.SignUpDTO dto);
-    // 로그인
-    UserResDTO.LoginDTO login(UserReqDTO.LoginDTO dto);
+    // Session 로그인
+    UserResDTO.LoginSessionDTO login(UserReqDTO.LoginSessionDTO dto);
+
+    // jwt 로그인
+    UserResDTO.LoginJwtDTO loginJwt(UserReqDTO.LoginJwtDTO dto);
 }

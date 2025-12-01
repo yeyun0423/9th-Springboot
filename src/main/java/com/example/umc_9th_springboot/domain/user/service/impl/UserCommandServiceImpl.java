@@ -7,6 +7,7 @@ import com.example.umc_9th_springboot.domain.user.entity.User;
 import com.example.umc_9th_springboot.domain.user.repository.UserRepository;
 import com.example.umc_9th_springboot.domain.user.service.UserCommandService;
 import com.example.umc_9th_springboot.global.auth.enums.Role;
+import com.example.umc_9th_springboot.global.auth.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,8 @@ public class UserCommandServiceImpl implements UserCommandService {
     private final UserRepository userRepository;
 
     private final PasswordEncoder passwordEncoder;
+
+    private final JwtUtil jwtUtil;
 
     //회원가입
     @Override
@@ -40,9 +43,9 @@ public class UserCommandServiceImpl implements UserCommandService {
                 .build();
     }
 
-    // 로그인
+    // Session 로그인
     @Override
-    public UserResDTO.LoginDTO login(UserReqDTO.LoginDTO dto) {
+    public UserResDTO.LoginSessionDTO login(UserReqDTO.LoginSessionDTO dto) {
 
         User user = userRepository.findByEmail(dto.getEmail())
                 .orElseThrow(() -> new NoSuchElementException("존재하지 않는 회원입니다."));
@@ -51,11 +54,35 @@ public class UserCommandServiceImpl implements UserCommandService {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
 
-        return UserResDTO.LoginDTO.builder()
+        return UserResDTO.LoginSessionDTO.builder()
                 .userId(user.getId())
                 .email(user.getEmail())
                 .name(user.getName())
                 .role(user.getRole())
                 .build();
     }
+
+    // jwt 로그인
+    @Override
+    public UserResDTO.LoginJwtDTO loginJwt(UserReqDTO.LoginJwtDTO dto) {
+
+        UserResDTO.LoginSessionDTO loginResult = login(
+                new UserReqDTO.LoginSessionDTO(
+                        dto.email(),
+                        dto.password()
+                )
+        );
+
+        String accessToken = jwtUtil.createAccessToken(
+                loginResult.getUserId(),
+                loginResult.getEmail(),
+                loginResult.getRole().name()
+        );
+
+        return UserResDTO.LoginJwtDTO.builder()
+                .userId(loginResult.getUserId())
+                .accessToken(accessToken)
+                .build();
+    }
+
 }

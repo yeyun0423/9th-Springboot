@@ -1,5 +1,7 @@
 package com.example.umc_9th_springboot.global.config;
 
+import com.example.umc_9th_springboot.global.auth.util.JwtAuthFilter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -8,10 +10,15 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
 
 @EnableWebSecurity
 @Configuration
+@RequiredArgsConstructor
 public class SecurityConfig {
+
+    private final JwtAuthFilter jwtAuthFilter;
 
     private final String[] allowUris = {
             "/swagger-ui/**",
@@ -20,7 +27,8 @@ public class SecurityConfig {
             "/webjars/**",
             "/api/users/sign-up/session",
             "/api/users/login/session",
-            "/api/users/logout/session"
+            "/api/users/logout/session",
+            "/api/users/login/jwt"
     };
 
     // PasswordEncoder 빈 등록
@@ -33,7 +41,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(AbstractHttpConfigurer::disable)  // CSRF 비활성화
+                .csrf(AbstractHttpConfigurer::disable)
 
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers(allowUris).permitAll()
@@ -50,7 +58,9 @@ public class SecurityConfig {
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/login?logout")
                         .permitAll()
-                );
+                )
+
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

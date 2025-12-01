@@ -23,11 +23,11 @@ public class UserController {
 
     // 로그인 세션 API
     @PostMapping("/login/session")
-    public UserResDTO.LoginDTO loginSession(
-            @RequestBody UserReqDTO.LoginDTO request,
+    public UserResDTO.LoginSessionDTO loginSession(
+            @RequestBody UserReqDTO.LoginSessionDTO request,
             HttpServletRequest httpRequest
     ) {
-        UserResDTO.LoginDTO response = userCommandService.login(request);
+        UserResDTO.LoginSessionDTO response = userCommandService.login(request);
 
         // 세션 생성 및 사용자 정보 저장
         HttpSession session = httpRequest.getSession(true);
@@ -43,5 +43,13 @@ public class UserController {
         if (session != null) {
             session.invalidate();
         }
+    }
+
+    // 로그인 JWT 방식 API
+    @PostMapping("/login/jwt")
+    public UserResDTO.LoginJwtDTO loginJwt(
+            @RequestBody UserReqDTO.LoginJwtDTO request
+    ) {
+        return userCommandService.loginJwt(request);
     }
 }
