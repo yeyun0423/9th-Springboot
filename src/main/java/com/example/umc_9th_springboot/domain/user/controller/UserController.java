@@ -36,4 +36,12 @@ public class UserController {
 
         return response;
     }
+    // 로그아웃 세션 방식
+    @PostMapping("/logout/session")
+    public void logoutSession(HttpServletRequest httpRequest) {
+        HttpSession session = httpRequest.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+    }
 }

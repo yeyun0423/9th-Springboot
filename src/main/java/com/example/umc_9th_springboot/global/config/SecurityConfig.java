@@ -19,7 +19,8 @@ public class SecurityConfig {
             "/v3/api-docs/**",
             "/webjars/**",
             "/api/users/sign-up/session",
-            "/api/users/login/session"
+            "/api/users/login/session",
+            "/api/users/logout/session"
     };
 
     // PasswordEncoder 빈 등록
