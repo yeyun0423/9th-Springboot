@@ -14,7 +14,7 @@ public class UserController {
     private final UserCommandService userCommandService;
 
     //회원가입 API
-    @PostMapping("/sign-up")
+    @PostMapping("/sign-up/session")
     public UserResDTO.SignUpDTO signUp(@RequestBody UserReqDTO.SignUpDTO request) {
         return userCommandService.signup(request);
     }
