@@ -18,4 +18,17 @@ public class UserResDTO {
         private String name;
         private Role role;
     }
+
+    //로그인 응답 DTO
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class LoginDTO {
+        private Long userId;
+        private String email;
+        private String name;
+        private Role role;
+    }
+
 }

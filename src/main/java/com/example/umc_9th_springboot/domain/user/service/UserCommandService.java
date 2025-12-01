@@ -7,4 +7,6 @@ public interface UserCommandService {
 
     //회원가입
     UserResDTO.SignUpDTO signup(UserReqDTO.SignUpDTO dto);
+    // 로그인
+    UserResDTO.LoginDTO login(UserReqDTO.LoginDTO dto);
 }

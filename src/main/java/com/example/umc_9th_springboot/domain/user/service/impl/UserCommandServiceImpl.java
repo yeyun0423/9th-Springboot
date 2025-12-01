@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.NoSuchElementException;
+
 
 @Service
 @RequiredArgsConstructor
@@ -35,6 +37,25 @@ public class UserCommandServiceImpl implements UserCommandService {
                 .email(savedUser.getEmail())
                 .name(savedUser.getName())
                 .role(savedUser.getRole())
+                .build();
+    }
+
+    // 로그인
+    @Override
+    public UserResDTO.LoginDTO login(UserReqDTO.LoginDTO dto) {
+
+        User user = userRepository.findByEmail(dto.getEmail())
+                .orElseThrow(() -> new NoSuchElementException("존재하지 않는 회원입니다."));
+
+        if (!passwordEncoder.matches(dto.getPassword(), user.getPassword())) {
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+        }
+
+        return UserResDTO.LoginDTO.builder()
+                .userId(user.getId())
+                .email(user.getEmail())
+                .name(user.getName())
+                .role(user.getRole())
                 .build();
     }
 }

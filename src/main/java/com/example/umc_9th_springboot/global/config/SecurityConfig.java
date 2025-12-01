@@ -18,7 +18,8 @@ public class SecurityConfig {
             "/swagger-resources/**",
             "/v3/api-docs/**",
             "/webjars/**",
-            "/api/users/sign-up"
+            "/api/users/sign-up/session",
+            "/api/users/login/session"
     };
 
     // PasswordEncoder 빈 등록
